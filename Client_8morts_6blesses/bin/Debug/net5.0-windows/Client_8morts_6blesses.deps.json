@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v5.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v5.0": {
+      "Client_8morts_6blesses/1.0.0": {
+        "runtime": {
+          "Client_8morts_6blesses.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Client_8morts_6blesses/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
