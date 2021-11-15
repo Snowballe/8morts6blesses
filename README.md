@@ -1,6 +1,6 @@
 # 8morts6blesses
 ***
-![img](/image/Shema-Projet)
+![alt](/image/Shema-Projet)
 ***
 ## Projet C#
 
