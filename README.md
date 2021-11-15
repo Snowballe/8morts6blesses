@@ -1,16 +1,16 @@
 # 8morts6blesses
 ***
-![Image text](/image/Schema-Projet)
+![img](/image/Shema-projet)
 ***
 ## Projet C#
 
 ### _Description_
 
-Création d'une centrale d'achat nommée "Raminagrobis" celle-ci sera composée de :
+CrÃ©ation d'une centrale d'achat nommÃ©e "Raminagrobis" celle-ci sera composÃ©e de :
 
 * BDD SQL Server
-* Une API Web(fait la passerelle entre l'appli et la BDD(Symfony peut être utilisé dans cette partie))
+* Une API Web(fait la passerelle entre l'appli et la BDD(Symfony peut Ãªtre utilisÃ© dans cette partie))
 * L'appli client lourd fait en C#
 
 ### _DATE RENDU_
-à rendre après les vacances de noël 
+Ã  rendre aprÃ¨s les vacances de noÃ«l 
