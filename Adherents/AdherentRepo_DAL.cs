@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Repo.DAL
 {
-    public class AdherentBasketRepo : Repo_DAL
+    public class AdherentBasketRepo : Repo_DAL<Adherent_DAL>
     {
         public override List<Adherent_DAL> GetAll()
         {
@@ -33,7 +33,7 @@ namespace Repo.DAL
             return listeDAdherents;
         }
 
-        public List<Adherent_DAL> GetAllByIDAdherent(int IDAdherent)
+        public List<Adherent_DAL> GetAllByID(int ID)
         {
             CreerConnexionEtCommande();
 

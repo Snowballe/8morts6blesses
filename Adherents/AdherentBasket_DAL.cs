@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Repo.DAL
 {
-    public class AdherentBasket_DAL<Type_DAL>
+    public class AdherentBasket_DAL
     {
 
         public int ID { get; private set; }

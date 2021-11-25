@@ -8,17 +8,17 @@ using System.Threading.Tasks;
 
 namespace Repo.DAL
 {
-    public class ProviderRef_DAL<Type_DAL>
+    public class ProviderRef_DAL
     {
 
-        public int ID_Provider { get; private set; }
-        public int ID_reference{ get; private set; }
+        public int id_provider { get; private set; }
+        public int id_reference{ get; private set; }
         
 
-        public List<Point_DAL> Points { get; set; }
+        public List<ProviderRef_DAL> Provider { get; set; }
 
 
-        public ProviderRef_DAL(IEnumerable<Point_DAL> desPoints) => (Points) = (desPoints.ToList());
+        public ProviderRef_DAL(IEnumerable<ProviderRef_DAL> desProvider) => (Provider) = (desProvider.ToList());
 
 
         public void Insert()
@@ -37,7 +37,9 @@ namespace Repo.DAL
                     commande.CommandText = "insert into references_fournisseurs(id_fournisseurs,id_references)"
                                            + "values(@id_fournisseurs,@id_references)";
 
-                    ID = (int)commande.ExecuteScalar();
+                   
+                    commande.Parameters.Add(new SqlParameter("@id_fournisseurs", id_fournisseurs));
+                    commande.Parameters.Add(new SqlParameter("@id_references", id_references));
                 }
 
                 connexion.Close();

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Repo.DAL
 {
-    public class Adherent_DAL<Type_DAL>
+    public class Adherent_DAL
     {
 
         public int ID { get; private set; }
@@ -37,7 +37,7 @@ namespace Repo.DAL
 
                     commande.Connection = connexion;
 
-                    commande.CommandText = "insert into 8M6B(DateAdhesion,Email,NomContact,PrenomContact)"
+                    commande.CommandText = "insert into Adherent(DateAdhesion,Email,NomContact,PrenomContact)"
                                            + "values(@DateAdhesion,@Email,@NomContact,@PrenomContact)";
                     commande.Parameters.Add(new SqlParameter("@DateAdhesion", DateTime.Now));
                     commande.Parameters.Add(new SqlParameter("@Email", Email));

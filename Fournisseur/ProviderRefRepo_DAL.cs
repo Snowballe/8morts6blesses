@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace Repo.DAL
 {
-    public class ProviderRefRepo : Repo_DAL
+    public class ProviderRefRepo : Repo_DAL<ProviderRef_DAL>
     {
         public override List<ProviderRef_DAL> GetAll()
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "select ID,societe,Nomcontact,PrenomContact,civilite,Adressenormee from Fournisseur";
+            commande.CommandText = "select id_references, id_fournisseurs from referencesfournisseur";
             var reader = commande.ExecuteReader();
 
             var listeDeFournisseur = new List<ProviderRef_DAL>();
@@ -33,12 +33,13 @@ namespace Repo.DAL
             return listeDeFournisseur;
         }
 
-        public List<ProviderRef_DAL> GetAllByIDAdherent(int IDFournisseurs)
+        public List<ProviderRef_DAL> GetAllByID(int ID)
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "select ID from Fournisseur where ID=@ID";
-            commande.Parameters.Add(new SqlParameter("@ID", ID));
+            commande.CommandText = "select id_references, id_fournisseurs from referencesfournisseur where id_fournisseurs=@id_fournisseurs, id_references=@id_references";
+            commande.Parameters.Add(new SqlParameter("@id_references", id_references));
+            commande.Parameters.Add(new SqlParameter("@id_fournisseurs", id_fournisseurs));
             var reader = commande.ExecuteReader();
 
             var listeDeFournisseur = new List<ProviderRef_DAL>();
@@ -58,39 +59,34 @@ namespace Repo.DAL
             return listeDeFournisseur;
         }
 
-        public override ProviderRef_DAL Insert(Fournisseur Fournisseur)
+        public override ProviderRef_DAL Insert(FournisseurREF FournisseurREF)
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "insert into Fournisseurs(ID,societe,Nomcontact,PrenomContact,civilite,Adressenormee)"
-                                    + " values (@ID, @societe, @Nomcontact, @PrenomContact, @civilite, @Adressenormee); select scope_identity()";
-            commande.Parameters.Add(new SqlParameter("@ID", ID));
-            commande.Parameters.Add(new SqlParameter("@Nomcontact", Nomcontact));
-            commande.Parameters.Add(new SqlParameter("@PrenomContact", PrenomContact));
-            commande.Parameters.Add(new SqlParameter("@civilite", civilite));
-            commande.Parameters.Add(new SqlParameter("@Adressenormee", Adressenormee));
+            commande.CommandText = "insert into referencesfournisseurs(id_references,id_fournisseurs)"
+                                    + " values (@id_references,id_fournisseurs); select scope_identity()";
+            commande.Parameters.Add(new SqlParameter("@id_fournisseurs", id_fournisseurs));
+            commande.Parameters.Add(new SqlParameter("@id_references", id_references));
+            
 
             var ID = Convert.ToInt32((decimal)commande.ExecuteScalar());
 
-            Fournisseur = ID;
+            FournisseurREF = ID;
 
             DetruireConnexionEtCommande();
 
-            return Fournisseur;
+            return FournisseurREF;
         }
 
-        public override ProviderRef_DAL Update(ProviderRef_DAL Fournisseur)
+        public override ProviderRef_DAL Update(ProviderRef_DAL FournisseurREF)
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "update Fournisseur set ID=@ID, societe=@societe, Nomcontact=@Nomcontact, PrenomContact=@PrenomContact, civilite=@civilite, Adressenormee=@Adressenormee )"
-                                    + " where ID=@ID";
-            commande.Parameters.Add(new SqlParameter("@ID", ID));
-            commande.Parameters.Add(new SqlParameter("@societe", societe));
-            commande.Parameters.Add(new SqlParameter("@Nomcontact", Nomcontact));
-            commande.Parameters.Add(new SqlParameter("@PrenomContact", PrenomContact));
-            commande.Parameters.Add(new SqlParameter("@civilite", civilite));
-            commande.Parameters.Add(new SqlParameter("@Adressenormee", Adressenormee));
+            commande.CommandText = "update referencesfournisseurs set id_references=@id_references, id_fournisseurs=@id_fournisseurs )"
+                                    + " where id_references=@id_references, id_fournisseurs=@id_fournisseurs";
+            commande.Parameters.Add(new SqlParameter("@id_fournisseurs", id_fournisseurs));
+            commande.Parameters.Add(new SqlParameter("@id_references", id_references));
+            
             var nombreDeLignesAffectees = (int)commande.ExecuteNonQuery();
 
             if (nombreDeLignesAffectees != 1)
@@ -100,20 +96,17 @@ namespace Repo.DAL
 
             DetruireConnexionEtCommande();
 
-            return Fournisseur;
+            return FournisseurREF;
         }
 
         public override void Delete(ProviderRef_DAL Provider)
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "delete from Adherent where ID=@ID";
-            commande.Parameters.Add(new SqlParameter("@ID", ID));
-            commande.Parameters.Add(new SqlParameter("@societe", societe));
-            commande.Parameters.Add(new SqlParameter("@Nomcontact", Nomcontact));
-            commande.Parameters.Add(new SqlParameter("@PrenomContact", PrenomContact));
-            commande.Parameters.Add(new SqlParameter("@civilite", Email));
-            commande.Parameters.Add(new SqlParameter("@Adressenormee", DateAdhesion));
+            commande.CommandText = "delete from referencesfournisseurs where id_fournisseurs=@id_fournisseurs, id_references=@id_references";
+            commande.Parameters.Add(new SqlParameter("@id_fournisseurs", id_fournisseurs));
+            commande.Parameters.Add(new SqlParameter("@id_references", id_references));
+            
             var nombreDeLignesAffectees = (int)commande.ExecuteNonQuery();
 
             if (nombreDeLignesAffectees != 1)

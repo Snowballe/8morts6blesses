@@ -8,20 +8,20 @@ using System.Threading.Tasks;
 
 namespace Repo.DAL
 {
-    public class ProviderRepo : Repo_DAL
+    public class ProviderRepo_DAL : Repo_DAL<Provider_DAL>
     {
-        public override List<ProviderRef_DAL> GetAll()
+        public override List<Provider_DAL> GetAll()
         {
             CreerConnexionEtCommande();
 
             commande.CommandText = "select ID,societe,Nomcontact,PrenomContact,civilite,Adressenormee from Fournisseur";
             var reader = commande.ExecuteReader();
 
-            var listeDeFournisseur = new List<ProviderRef_DAL>();
+            var listeDeFournisseur = new List<Provider_DAL>();
 
             while (reader.Read())
             {
-                var p = new ProviderRef_DAL(reader.GetInt32(0),
+                var p = new Provider_DAL(reader.GetInt32(0),
                                         reader.GetInt32(1),
                                         reader.GetInt32(2),
 
@@ -33,7 +33,7 @@ namespace Repo.DAL
             return listeDeFournisseur;
         }
 
-        public List<ProviderRef_DAL> GetAllByIDAdherent(int IDFournisseurs)
+        public List<Provider_DAL> GetAllByID(int ID)
         {
             CreerConnexionEtCommande();
 
@@ -41,11 +41,11 @@ namespace Repo.DAL
             commande.Parameters.Add(new SqlParameter("@ID", ID));
             var reader = commande.ExecuteReader();
 
-            var listeDeFournisseur = new List<ProviderRef_DAL>();
+            var listeDeFournisseur = new List<Provider_DAL>();
 
             while (reader.Read())
             {
-                var p = new ProviderRef_DAL(reader.GetInt32(0),
+                var p = new Provider_DAL(reader.GetInt32(0),
                                         reader.GetInt32(1),
                                         reader.GetInt32(2),
                                         reader.GetInt32(3));
@@ -58,7 +58,7 @@ namespace Repo.DAL
             return listeDeFournisseur;
         }
 
-        public override ProviderRef_DAL Insert(Fournisseur Fournisseur)
+        public override Provider_DAL Insert(Fournisseur Fournisseur)
         {
             CreerConnexionEtCommande();
 
@@ -79,7 +79,7 @@ namespace Repo.DAL
             return Fournisseur;
         }
 
-        public override ProviderRef_DAL Update(ProviderRef_DAL Fournisseur)
+        public override Provider_DAL Update(Provider_DAL Fournisseur)
         {
             CreerConnexionEtCommande();
 
@@ -103,7 +103,7 @@ namespace Repo.DAL
             return Fournisseur;
         }
 
-        public override void Delete(ProviderRef_DAL Provider)
+        public override void Delete(Provider_DAL Fournisseur)
         {
             CreerConnexionEtCommande();
 

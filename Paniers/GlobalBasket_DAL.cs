@@ -8,14 +8,12 @@ using System.Threading.Tasks;
 
 namespace Repo.DAL
 {
-    public class ProviderBasket_DAL
+    public class GlobalBasket_DAL
     {
 
-        public int id { get; private set; }
-        public int id_fournisseurs { get; set; }
-        public float PrixUnitaireHT { get; set; }
-        public int id_PanierDetails { get; set; }
-
+        public int ID { get; private set; }
+        public int semaine { get; set; }
+        
 
         public void Insert()
         {
@@ -30,13 +28,12 @@ namespace Repo.DAL
 
                     commande.Connection = connexion;
 
-                    commande.CommandText = "insert into fournisseurs_panier(id,id_fournisseurs,PrixUnitaireHT,id_PaniersDetails)"
-                                           + "values(@ID,@id_fournisseurs,@PrixUnitaireHT,@id_PaniersDetails)";
+                    commande.CommandText = "insert into PanierGlobal(id, semaine)"
+                                           + "values(@id, @semaine)";
 
                     commande.Parameters.Add(new SqlParameter("@id", id));
-                    commande.Parameters.Add(new SqlParameter("@id_fournisseurs", id_fournisseurs));
-                    commande.Parameters.Add(new SqlParameter("@PrixUnitaireHT", PrixUnitaireHT));
-                    commande.Parameters.Add(new SqlParameter("@id_PaniersDetails", id_PaniersDetails));
+                    commande.Parameters.Add(new SqlParameter("@semaine", semaine));
+                    
 
                 }
                 connexion.Close();
